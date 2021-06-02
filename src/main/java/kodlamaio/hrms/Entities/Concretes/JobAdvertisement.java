@@ -3,6 +3,7 @@ package kodlamaio.hrms.Entities.Concretes;
 
 
 import java.sql.Date;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -39,13 +40,10 @@ public class JobAdvertisement {
 	@ManyToOne()
     @JoinColumn(name="employer_id")
     private Employer employer;
-	
-	
 
 	@ManyToOne()
 	@JoinColumn(name="job_title_id")
 	private JobTitle jobTitle;
-	
 
 	@ManyToOne()
 	@JoinColumn(name="city_id")

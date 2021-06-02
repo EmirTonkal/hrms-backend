@@ -2,6 +2,7 @@ package kodlamaio.hrms.API.controllers;
 
 import java.util.List;
 
+import kodlamaio.hrms.Entities.dtos.JobAdvertisementDetailsDtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,11 @@ public class jobAdvertisementController {
 	@GetMapping("/getByisActiveTrueAndEmployerId")
 	public DataResult<List<JobAdvertisement>> getByisActiveTrueAndEmployerId(int id){
 		return this.jobAdvertisementService.getByisActiveTrueAndEmployerId(id);
+	}
+
+	@GetMapping("/getAdvertisementWithEmployerDetails")
+	public DataResult<List<JobAdvertisementDetailsDtos>> getAdvertisementWithEmployerDetails(){
+		return this.jobAdvertisementService.getAdvertisementWithEmployerDetails();
 	}
 	
 	@PostMapping("/add")

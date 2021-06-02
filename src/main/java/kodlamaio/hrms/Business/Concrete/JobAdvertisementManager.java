@@ -3,6 +3,7 @@ package kodlamaio.hrms.Business.Concrete;
 import java.time.LocalDate;
 import java.util.List;
 
+import kodlamaio.hrms.Entities.dtos.JobAdvertisementDetailsDtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 
 	@Override
+	public DataResult<List<JobAdvertisementDetailsDtos>> getAdvertisementWithEmployerDetails() {
+		return new SuccessDataResult<List<JobAdvertisementDetailsDtos>>(this.jobAdvertisementDao.getAdvertisementWithEmployerDetails());
+	}
+
+	@Override
 	public Result add(JobAdvertisement jobAdvertisement) {
 		
 		Result result = BusinessRules.run( employerControl(jobAdvertisement.getEmployer().getId()),
@@ -70,7 +76,6 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		
 		if(result.isSuccess()) {	
 			
-
 			jobAdvertisementDao.save(jobAdvertisement);
 			return new SuccessResult("eklendi");
 			
@@ -97,10 +102,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	
 
 
-
-	
-	
-	//PRİVATE KURAL METOTLARI ------------------------------------------------------------------------------------------------------------------------------------------
+	//PRİVATE ADD KURAL METOTLARI ------------------------------------------------------------------------------------------------------------------------------------------
 	private Result employerControl(int id) {
 		if(!employerDao.existsById(id)) {
 			return new ErrorResult("böyle bir kullanıcı yok");
@@ -159,7 +161,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 
 
-	//UPDATE PRİVATE METOTLARI -----------------------------------------------------------------------------------------------------------------------
+	//UPDATE METOTLARI -----------------------------------------------------------------------------------------------------------------------
 
 	private Result checkAplicationDeadline(int jobAdvertisementId, JobAdvertisement jobAdvertisement) {
 		
@@ -174,6 +176,9 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		}
 		return new SuccessResult();
 	}
+	
+	
+	
 
 
 
